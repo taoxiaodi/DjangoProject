@@ -1,0 +1,26 @@
+div.top{
+    height: 100px;
+    background-color: bisque;
+}
+div.content{
+    margin: auto;
+    width: 1100px;
+    height: 500px;
+    background-color: darksalmon;
+}
+div.left{
+    float: left;
+    width: 30%;
+    height: 500px;
+    background-color: antiquewhite;
+}
+div.right{
+    float: right;
+    width:70%;
+    height: 500px;
+    background-color: burlywood;
+}
+div.footer{
+    height: 200px;
+    background-color: aquamarine;
+}

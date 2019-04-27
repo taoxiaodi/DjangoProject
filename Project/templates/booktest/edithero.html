@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑英雄</title>
+    <link rel="stylesheet" href="/static/css/index.css">
+</head>
+<body>
+    <div class="content">
+        <h1>修改英雄:{{ hero.hname }}</h1>
+        <form action="{% url 'booktest:editheroinfo' hero.id %}" method="post">
+            英雄名称: <input type="text" name="hero">
+            <br>
+            英雄技能: <input type="text" name="skill">
+            <br>
+            <input type="submit" value="提交">
+        </form>
+        <br>
+        <a href="{% url 'booktest:detail' hero.bookid.id %}">返回列表</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加书籍</title>
+</head>
+<body>
+    <div class="content">
+        <h1>添加书籍</h1>
+        <form action="{% url 'booktest:bookname' %}" method="post">
+            书籍名称: <input type="text" name="book">
+            <br>
+            <input type="submit" value="提交">
+        </form>
+        <br>
+        <a href="{% url 'booktest:list' %}">返回列表页</a>
+    </div>
+</body>
+</html>

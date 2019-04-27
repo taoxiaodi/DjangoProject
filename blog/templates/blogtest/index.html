@@ -1,0 +1,96 @@
+{% extends 'blogtest/base.html' %}
+{% load extend_fun %}
+
+{% block left %}
+    {% for article in article.object_list %}
+          <article class="post post-1">
+        <header class="entry-header">
+            <h1 class="entry-title">
+                <a href="#">{{article.title}}</a>
+            </h1>
+            <div class="entry-meta">
+                <span class="post-category"><a href="#">{{article.classifyid.designation}}</a></span>
+                <span class="post-date"><a href="#"><time class="entry-date"
+                                                          datetime="2012-11-09T23:15:57+00:00">{{article.datetime}}</time></a></span>
+                <span class="post-author"><a href="#">{{article.auth}}</a></span>
+                <span class="comments-link"><a href="#">{{ article.comment_set.count}} 评论</a></span>
+                <span class="views-count"><a href="#">{{article.hits}} 阅读</a></span>
+            </div>
+        </header>
+        <div class="entry-content clearfix">
+            <p>{{article.digest|truncatechars_html:90}}.....</p>
+            <div class="read-more cl-effect-14">
+                <a href="{% url 'blogtest:detail' article.id%}" class="more-link">继续阅读 <span class="meta-nav">→</span></a>
+            </div>
+        </div>
+    </article>
+    {% endfor%}
+{% endblock %}
+
+{% block right%}
+{% endblock %}
+
+{# 分类#}
+{% block classify %}
+    <ul>
+        {% for class in classify%}
+            <li>
+                <a href="{% url 'blogtest:classify' class.id %}">{{class.designation}}<span class="post-count">({{class.article_set.count}})</span></a>
+            </li>
+        {% endfor%}
+    </ul>
+{% endblock%}
+
+{# 标签云 #}
+{% block tag%}
+    <ul>
+        {% for label in label%}
+            <li>
+                <a href="{% url 'blogtest:label' label.id %}">{{label.tag_name}}</a>
+            </li>
+        {% endfor%}
+    </ul>
+{% endblock%}
+
+
+{% block discuss%}
+{% endblock %}
+
+{# 最新文章#}
+{% block lastearticle %}
+    <ul>
+        {% latest_article as latest_article %}
+        {% for book in latest_article %}
+            <li>
+                <a href="{% url 'blogtest:detail' book.id%}">{{book.title}}：前言</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+{# 归档#}
+{% block pigeon %}
+    <ul>
+    {% getdate as file %}
+        {% for date in file %}
+        <li><a href="{% url 'blogtest:pigeonhole' date.month %}">{{ date.year }}年{{ date.month }}月</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+{# 分页功能 #}
+{% block list %}
+    <div class="pagination-simple">
+        {% if article.object_list %}
+            {% if article.has_previous %}
+                <a href="?page={{article.previous_page_number}}">上一页</a>
+                <a href="?page={{article.number|add:-1}}">{{ article.number|add:-1}}</a>
+            {% endif %}
+            <span class="current">第 {{article.number}} 页 / 共 {{article.paginator.num_pages}} 页</span>
+            {% if article.has_next %}
+                <a href="?page={{article.number|add:1}}">{{ article.number|add:1}}</a>
+                <a href="?page={{article.next_page_number}}">下一页</a>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endblock %}

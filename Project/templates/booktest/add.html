@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>增加英雄</title>
+    <link rel="stylesheet" href="/static/css/index.css">
+</head>
+<body>
+    <div class="content">
+        <form action="{% url 'booktest:addhero' bookid%}" method="post">
+            英雄名字:<input type="text" name="name">
+            <br>
+            性别: 男 <input type="radio" name="sex" value="0">
+                 女 <input type="radio" name="sex" value="1">
+            <br>
+            技能: <input type="text" name="hcontent">
+            <br>
+            <input type="submit" value="提交" >
+        </form>
+        <br>
+        <a href="{% url 'booktest:detail' bookid%}">返回列表</a>
+    </div>
+</body>
+</html>

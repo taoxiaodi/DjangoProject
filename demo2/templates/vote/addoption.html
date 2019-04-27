@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>增加选项</title>
+</head>
+<body>
+    <h1>增加选项</h1>
+    <form action="{% url 'vote:writeoption' vote %}" method="post">
+        选项名字:<input type="text" name="option">
+        <input type="submit" value="提交">
+    </form>
+{#    <a href="{% url 'vote:poll' %}">返回</a>#}
+</body>
+</html>

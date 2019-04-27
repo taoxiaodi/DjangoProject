@@ -1,0 +1,14 @@
+div.content{
+    width: 500px;
+    background-color: darkgray;
+    box-shadow: 1px 1px 8px black;
+    margin: 100px auto;
+    color: azure;
+}
+.content img{
+    width: 500px;
+    height: 350px;
+}
+.content a{
+    color: azure;
+}

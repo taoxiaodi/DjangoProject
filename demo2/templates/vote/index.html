@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="/static/css/index.css">
+</head>
+<body>
+    <div class="content">
+        <h1>投票信息汇总</h1>
+        <ul>
+            {% for que in question %}
+                <li><a href="{% url 'vote:poll' que.id %}">{{ forloop.counter }}. {{ que.question}}</a>
+                    <a href="{% url 'vote:edit' que.id %}" style="margin-left: 30px">编辑</a>
+                    <a href="{% url 'vote:dropque' que.id %}">删除</a>
+                </li>
+                <br>
+            {% empty %}
+                <h1>还没有投票信息</h1>
+            {% endfor %}
+            <a href="{% url 'vote:all' %}">显示所有详情</a>
+            <a href="{% url 'vote:add' %}" style="margin-left:30px ">⊕增加问题</a>
+        </ul>
+    </div>
+</body>
+</html>

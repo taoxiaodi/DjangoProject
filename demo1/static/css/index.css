@@ -1,0 +1,11 @@
+div.container{
+    width: 500px;
+    height: 500px;
+    border: 3px solid darkgrey;
+    box-shadow: 1px 2px 8px black;
+    background-color: darkgrey;
+}
+.container img{
+    width: 500px;
+    height: 350px;
+}

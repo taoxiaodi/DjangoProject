@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>详情页</title>
+</head>
+<body>
+    <h1>书籍名称:{{ info }}</h1>
+    <ul>
+        {% for book in info.authinfo_set.all %}
+            <li>作者:{{ book.aname }}</li>
+            <li>性别:{{ book.agender }}</li>
+            <li>价格:{{ book.aprice }}</li>
+            <li>书籍语录:{{ book.aintro }}</li>
+        {% empty %}
+            <h1>没有这本书的详情信息</h1>
+        {% endfor %}
+    </ul>
+    <br>
+    <a href="{% url 'booktest:list' %}">返回图书阁</a>
+</body>
+</html>

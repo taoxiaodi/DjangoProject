@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>投票页面</title>
+    <link rel="stylesheet" href="/static/css/index.css">
+</head>
+<body>
+    <div class="content">
+        <h2>问题: {{ que }}</h2>
+        <ul>
+            <form action="{% url 'vote:detail' que.id %}" method="post">
+                {% for opt in poll %}
+                    <li>{{opt.option}} <input type="radio" name="poll" value="{{ opt.id }}"></li>
+                    <br>
+                {% empty %}
+                    <h1>你还未添加选项</h1>
+                {% endfor %}
+                {% if que.votenum_set.all %}
+                    <input type="submit" value="投票">
+                {% endif  %}
+            </form>
+        </ul>
+        <a href="{% url 'vote:addoption' que.id %}" style="margin-right:20px">添加选项</a>
+        <a href="{% url 'vote:index' %}">返回首页</a>
+    </div>
+</body>
+</html>

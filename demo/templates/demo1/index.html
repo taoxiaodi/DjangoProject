@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/main.css">
+</head>
+<body>
+    <div class="top">
+        {% block top %}
+            页面头部
+        {% endblock %}
+    </div>
+    <div class="content">
+        <div class="left">
+            {% block left %}
+                页面左部
+            {% endblock %}
+        </div>
+        <div class="right">
+            {% block right %}
+                页面右边
+            {% endblock %}
+        </div>
+    </div>
+    <div class="footer">
+        {% block footer %}
+            页面底部
+        {% endblock %}
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,13 @@
+*{list-style: none}
+div.content{
+    margin: 100px auto;
+    width: 500px;
+    background-color: rgba(12,8,1,0.4);
+    color: aliceblue;
+    box-shadow: 1px 1px 8px black;
+    padding: 30px 30px;
+}
+div.content a{
+    text-decoration: none;
+    color: aliceblue;
+}

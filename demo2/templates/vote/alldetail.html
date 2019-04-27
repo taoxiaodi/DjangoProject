@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>所有详情</title>
+    <link rel="stylesheet" href="/static/css/index.css">
+</head>
+<body>
+    <div class="content">
+        <ul>
+            {% for info in all %}
+                <li><h1>{{ info }}</h1></li>
+                {% for res in info.votenum_set.all %}
+                    <li>{{ res.option }} -----{{ res.num }}</li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+        <a href="{% url 'vote:index' %}">返回首页</a>
+    </div>
+</body>
+</html>

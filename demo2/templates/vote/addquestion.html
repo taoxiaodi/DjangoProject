@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>增加问题</title>
+    <link rel="stylesheet" href="/static/css/index.css">
+</head>
+<body>
+    <div class="content">
+        {% if choice == 1 %}
+            <h1>重新编辑问题:{{ que }}</h1>
+            <form action="{% url 'vote:editsave' que.id %}" method="post">
+                问题:<input type="text" name="question">
+                <input type="submit" value="提交">
+            </form>
+        {% elif choice != 1 %}
+            <h1>添加问题</h1>
+            <form action="{% url 'vote:writeque' %}" method="post">
+                问题:<input type="text" name="question">
+                <input type="submit" value="提交">
+            </form>
+        {% endif %}
+        <br>
+        <a href="{% url 'vote:index' %}">返回首页</a>
+    </div>
+</body>
+</html>

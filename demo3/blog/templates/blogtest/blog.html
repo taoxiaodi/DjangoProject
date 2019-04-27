@@ -1,0 +1,68 @@
+{% extends 'blogtest/base.html' %}
+{% load extend_fun %}
+{% block left %}
+     {% for article in article %}
+            <article class="post post-1">
+                <header class="entry-header">
+                    <h1 class="entry-title">
+                        <a href="{% url 'blogtest:detail' article.id %}">{{ article.title }}：前言</a>
+                    </h1>
+                    <div class="entry-meta">
+                        <span class="post-category"><a href="#">{{ article.classifyid.designation }}</a></span>
+                        <span class="post-date"><a href="#"><time class="entry-date"
+                                                                  datetime="2012-11-09T23:15:57+00:00">2017年5月11日</time></a></span>
+                        <span class="post-author"><a href="#">{{ article.auth }}</a></span>
+                        <span class="comments-link"><a href="#">4 评论</a></span>
+                        <span class="views-count"><a href="#">{{ article.hits }} 阅读</a></span>
+                    </div>
+                </header>
+                <div class="entry-content clearfix">
+                    <p>{{ article.digest }}</p>
+                    <div class="read-more cl-effect-14">
+                        <a href="#" class="more-link">继续阅读 <span class="meta-nav">→</span></a>
+                    </div>
+                </div>
+            </article>
+     {% endfor %}
+{% endblock %}
+{% block  lastearticle %}
+     <ul>
+        {% for book in lastarticle %}
+        <li>
+            <a href="{% url 'blogtest:detail' book.id %}">{{ book.title }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+{% block right %}
+{% endblock %}
+{% block pigeon %}
+    <ul>
+    {% gettag as file %}
+        {% for date in file %}
+        <li><a href="{% url 'blogtest:pigeonhole' date.month %}">{{ date.year }}年{{ date.month }}月</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+{% block classify %}
+     <ul>
+         {% for book in classify %}
+             <li>
+                <a href="{% url 'blogtest:classify' book.id %}">{{ book.designation }}<span class="post-count">({{book.article_set.count}})</span></a>
+            </li>
+         {% endfor %}
+     </ul>
+{% endblock %}
+{% block tag %}
+    <ul>
+        {% for tag in lable %}
+            <li>
+                <a href="{% url 'blogtest:lable' tag.id %}">{{ tag.tag_name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+{% block discuss %}
+{% endblock %}

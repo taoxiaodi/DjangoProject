@@ -1,0 +1,241 @@
+{% load extend_fun %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Black &amp; White</title>
+
+    <!-- meta -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- css -->
+    <link rel="stylesheet" href="/blog/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="/blog/static/css/pace.css">
+    <link rel="stylesheet" href="/blog/static/css/custom.css">
+
+    <!-- js -->
+    <script src="/blog/static/js/jquery-2.1.3.min.js"></script>
+    <script src="/blog/static/js/bootstrap.min.js"></script>
+    <script src="/blog/static/js/pace.min.js"></script>
+    <script src="/blog/static/js/modernizr.custom.js"></script>
+</head>
+
+<body>
+<div class="container">
+    <header id="site-header">
+        <div class="row">
+            <div class="col-md-4 col-sm-5 col-xs-8">
+                <div class="logo">
+                    <h1><a href="index.html"><b>Black</b> &amp; White</a></h1>
+                </div>
+            </div><!-- col-md-4 -->
+            <div class="col-md-8 col-sm-7 col-xs-4">
+                <nav class="main-nav" role="navigation">
+                    <div class="navbar-header">
+                        <button type="button" id="trigger-overlay" class="navbar-toggle">
+                            <span class="ion-navicon"></span>
+                        </button>
+                    </div>
+
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="cl-effect-11"><a href="{% url 'blogtest:index' %}" data-hover="首页">首页</a></li>
+                            <li class="cl-effect-11"><a href="full-width.html" data-hover="博客">博客</a></li>
+                            <li class="cl-effect-11"><a href="about.html" data-hover="关于">关于</a></li>
+                            <li class="cl-effect-11"><a href="contact.html" data-hover="联系">联系</a></li>
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </nav>
+                <div id="header-search-box">
+                    <a id="search-menu" href="#"><span id="search-icon" class="ion-ios-search-strong"></span></a>
+                    <div id="search-form" class="search-form">
+                        <form role="search" method="get" id="searchform" action="#">
+                            <input type="search" placeholder="搜索" required>
+                            <button type="submit"><span class="ion-ios-search-strong"></span></button>
+                        </form>
+                    </div>
+                </div>
+            </div><!-- col-md-8 -->
+        </div>
+    </header>
+</div>
+
+<div class="content-body">
+    <div class="container">
+        <div class="row">
+            <main class="col-md-8">
+                {% block left %}
+                    <article class="post post-1">
+                    <header class="entry-header">
+                        <h1 class="entry-title">
+                            <a href="single.html">Django 博客开发入门教程：前言</a>
+                        </h1>
+                        <div class="entry-meta">
+                            <span class="post-category"><a href="#">Django 博客教程</a></span>
+                            <span class="post-date"><a href="#"><time class="entry-date"
+                                                                      datetime="2012-11-09T23:15:57+00:00">2017年5月11日</time></a></span>
+                            <span class="post-author"><a href="#">追梦人物</a></span>
+                            <span class="comments-link"><a href="#">4 评论</a></span>
+                            <span class="views-count"><a href="#">588 阅读</a></span>
+                        </div>
+                    </header>
+                    <div class="entry-content clearfix">
+                        <p>免费、中文、零基础，完整的项目，基于最新版 Django 1.10 和 Python 3.5。带你从零开始一步步开发属于自己的博客网站，帮助你以最快的速度掌握 Django
+                            开发的技巧...</p>
+                        <div class="read-more cl-effect-14">
+                            <a href="#" class="more-link">继续阅读 <span class="meta-nav">→</span></a>
+                        </div>
+                    </div>
+                </article>
+                {% endblock %}
+                <div class="pagination">
+                   {% block list %}
+                        <ul>
+                        <li><a href="">1</a></li>
+                        <li><a href="">...</a></li>
+                        <li><a href="">4</a></li>
+                        <li><a href="">5</a></li>
+                        <li class="current"><a href="">6</a></li>
+                        <li><a href="">7</a></li>
+                        <li><a href="">8</a></li>
+                        <li><a href="">...</a></li>
+                        <li><a href="">11</a></li>
+                    </ul>
+                    {% endblock %}
+                </div>
+                    <section class="comment-area" id="comment-area">
+                    {% block discuss %}
+                    <hr>
+                    <h3>发表评论</h3>
+                    <form action="#" method="post" class="comment-form">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="id_name">名字：</label>
+                                <input type="text" id="id_name" name="name" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="id_email">邮箱：</label>
+                                <input type="email" id="id_email" name="email" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="id_url">网址：</label>
+                                <input type="text" id="id_url" name="url">
+                            </div>
+                            <div class="col-md-12">
+                                <label for="id_comment">评论：</label>
+                                <textarea name="comment" id="id_comment" required></textarea>
+                                <button type="submit" class="comment-btn">发表</button>
+                            </div>
+                        </div>    <!-- row -->
+                    </form>
+
+                    <div class="comment-list-panel">
+                        <h3>评论列表，共 <span>4</span> 条评论</h3>
+                        <ul class="comment-list list-unstyled">
+                            <li class="comment-item">
+                                <span class="nickname">追梦人物</span>
+                                <time class="submit-date" datetime="2012-11-09T23:15:57+00:00">2017年3月12日 14:56</time>
+                                <div class="text">
+                                    文章观点又有道理又符合人性，这才是真正为了表达观点而写，不是为了迎合某某知名人士粉丝而写。我觉得如果琼瑶是前妻，生了三孩子后被一不知名的女人挖了墙角，我不信谁会说那个女人是追求真爱，说同情琼瑶骂小三的女人都是弱者。
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    {% endblock %}
+                </section>
+            </main>
+            <aside class="col-md-4">
+                {% block right %}
+                     <div class="widget widget-content">
+                    <h3 class="widget-title">文章目录</h3>
+                    <ul>
+                        <li>
+                            <a href="#">教程特点</a>
+                        </li>
+                    </ul>
+                </div>
+                {% endblock %}
+
+
+                <div class="widget widget-recent-posts">
+                    <h3 class="widget-title">最新文章</h3>
+                    {% block lastearticle %}
+                    <ul>
+                        {% for book in getlasterticle %}
+                        <li>
+                            <a href="#">{{ book.title }}：前言</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% endblock %}
+                </div>
+                <div class="widget widget-archives">
+                    <h3 class="widget-title">归档</h3>
+                    <ul>
+                        {% block pigeon %}
+                        <li>
+                            <a href="#">2017 年 5 月</a>
+                        </li>
+                        {% endblock %}
+                    </ul>
+                </div>
+
+                <div class="widget widget-category">
+                    <h3 class="widget-title">分类</h3>
+                     {% block classify %}
+                        <ul>
+                            <li>
+                                <a href="#">Django 博客教程 <span class="post-count">(13)</span></a>
+                            </li>
+                        </ul>
+                    {% endblock %}
+                </div>
+
+                <div class="widget widget-tag-cloud">
+                    <h3 class="widget-title">标签云</h3>
+                    {% block tag %}
+                    <ul>
+                        <li>
+                            <a href="#">Django</a>
+                        </li>
+                    </ul>
+                    {% endblock %}
+                </div>
+                <div class="rss">
+                    <a href=""><span class="ion-social-rss-outline"></span> RSS 订阅</a>
+                </div>
+            </aside>
+        </div>
+    </div>
+</div>
+
+<footer id="site-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <p class="copyright">&copy 2017 - 采集自<a href="http://www.cssmoban.com/"
+                                                        target="_blank" title="模板之家">模板之家</a>
+                    - 由<a href="http://zmrenwu.com/" title="网页模板" target="_blank">追梦人物的博客</a>修改
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Mobile Menu -->
+<div class="overlay overlay-hugeinc">
+    <button type="button" class="overlay-close"><span class="ion-ios-close-empty"></span></button>
+    <nav>
+        <ul>
+            <li><a href="index.html">首页</a></li>
+            <li><a href="full-width.html">博客</a></li>
+            <li><a href="about.html">关于</a></li>
+            <li><a href="contact.html">联系</a></li>
+        </ul>
+    </nav>
+</div>
+
+<script src="/blog/static/js/script.js"></script>
+
+</body>
+</html>

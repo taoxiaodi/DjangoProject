@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>书籍列表</title>
+</head>
+<body>
+    <h1>图书阁</h1>
+    <ul>
+        {% for book in booklist %}
+            {# <li>书籍名称: <a href="/booktest/detail/{{book.id}}">{{book.btitle}}</a></li> #}
+            <li>书籍名称: <a href="{% url 'booktest:detail' book.id %}">{{book.btitle}}</a></li>
+            <li>发布时间: {{ book.bpub_date }}</li>
+            <br>
+        {% empty %}
+            <h1>这本书的版权正在申请中</h1>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'booktest:index' %}">返回首页</a>
+</body>
+</html>
