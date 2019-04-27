@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>搜索结果</title>
+</head>
+<body>
+    {% if query %}
+        {% for article in page.object_list %}
+            <li>{{article.object.title}}</li>
+        {% empty %}
+            没有找到内容
+        {% endfor %}
+    {% endif %}
+</body>
+</html>
