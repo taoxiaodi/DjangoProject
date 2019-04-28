@@ -1,0 +1,39 @@
+{% extends 'book/base.html' %}
+
+{% block link %}
+	{% if book %}
+	<a href="{% url 'book:index' %}"> 返回 </a>
+	{% endif %}
+{% endblock %}
+
+{% block body %}
+	{% if error %}
+	<div class=error>
+	  <strong>Errror : </strong> {{error}}
+	</div>
+	{% endif %}
+	<h2> 书目信息 </h2>
+	{% if book %}
+	<li> ISBN: {{book.book}} </li>
+	<li> 书名: {{book.title}} </li>
+	<li> 作者: {{book.auth}} </li>
+	<li> 出版社: {{book.press}} </li>
+	<li> 出版日期: {{book.pub_date}} </li>
+	{% endif %}
+	<div >
+	  <h2 > 借阅信息 </h2>
+	  {% if reader  %}
+	  <li> 借阅者姓名: {{reader.user_name}}</li>
+	  <li> 借阅日期:  {{reader.date_return}}</li>
+	  <li> 还书日期:  {{reader.date_borrow}}</li>
+	  {% else %}
+	  <li> 无 </li>
+	  {% endif %}
+	  <form action="{% url 'book:borrow_book' book.book %}" method=post>
+          {% csrf_token %}
+	    <div class=actions>
+	      <input type=submit value="借阅">
+	    </div>
+	  </form>
+    </div>
+{% endblock %}

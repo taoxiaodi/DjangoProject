@@ -1,0 +1,17 @@
+{% extends 'book/base.html' %}
+
+{% block link %}
+    {% if username %}
+        <a href="{% url 'book:clear_info' %}"> 注销[{{username}}] </a> |
+        <a href="{% url 'book:reader_query' %}"> 查询 </a> |
+        <a href="{% url 'book:reader_info' username %}"> 查看个人信息 </a> |
+        <a href="{% url 'book:reader_history' %}"> 查看阅读记录 </a>
+    {% elif not username %}
+        <a href="{% url 'book:login' %}">读者登录</a>|
+        <a href="{% url 'book:register' %}">读者注册</a>
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+<h2>欢迎使用</h2>
+{% endblock %}

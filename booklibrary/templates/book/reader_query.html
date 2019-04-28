@@ -1,0 +1,44 @@
+{% extends 'book/base.html' %}
+
+{% block link %}
+	<a href="{% url 'book:index' %}"> 返回 </a>
+{% endblock %}
+
+{% block body %}
+	<h2> 查询 </h2>
+    <div class=actions>
+	  <form action="{% url 'book:reader_query' %}" method="post">
+          {% csrf_token %}
+	    <dd>
+	      <select name="item">
+			<option value="title"> 书名 </option>
+			<option value="auth"> 作者 </option>
+	      </select>
+	      <input type="text" name="query" size="80">
+	      <input type="submit" value="查询">
+	    </dd>
+	  </form>
+	</div>
+	{% if books %}
+	<table width="600" border="1" align="center">
+	  <tr>
+		<th align="center"> ISBN </th>
+		<th align="center"> 书名 </th>
+		<th align="center"> 作者</th>
+		<th align="center"> 出版商 </th>
+		<th align="center"> 出版时间 </th>
+		<th align="center"> 查看信息 </th>
+	  </tr>
+	  {% for book in books %}
+	  <tr>
+		<th align="center"> {{book.book}}</th>
+		<th align="center"> {{book.title}} </th>
+		<th align="center"> {{book.auth}}</th>
+		<th align="center"> {{book.press}} </th>
+		<th align="center"> {{book.pub_date}}</th>
+		<th align="center"> <a href="{% url 'book:reader_book' book.book %}"> 点击进入 </a> </th>
+	  </tr>
+	  {% endfor %}
+	  {% endif %}
+	</table>
+{% endblock %}
