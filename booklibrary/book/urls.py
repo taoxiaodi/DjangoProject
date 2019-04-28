@@ -13,6 +13,5 @@ urlpatterns = [
     url(r'^reader_save_modify$', views.reader_save_modify, name='reader_save_modify'),
     url(r'reader_query$', views.reader_query, name='reader_query'),
     url(r'reader_book/(\d+)$', views.reader_book, name='reader_book'),
-    url(r'borrow_book/(\d+)$', views.borrow_book, name='borrow_book'),
     url(r'reader_history/$', views.reader_history, name='reader_history'),
 ]

@@ -158,31 +158,43 @@ def reader_query(request):
 def reader_book(request, num):
     book = Book.objects.get(pk=num)
     borrow = Borrows.objects.filter(book_id=num)
+    if request.method == "GET":
+        if borrow:
+            content = {
+                "book": book,
+                "reader": borrow[0],
+            }
+            return render(request, 'book/reader_book.html', content)
+        else:
+            return render(request, 'book/reader_book.html', {'book': book})
 
-    if borrow:
-        content = {
-            "book": book,
-            "reader": borrow[0],
-        }
-        return render(request, 'book/reader_book.html', content)
-    else:
-        return render(request, 'book/reader_book.html', {'book': book})
-
-
-def borrow_book(request, num):
-    name = request.session.get('username', None)
-
-    borrow = Borrows()
-    borrow.user_name = name
-    borrow.book_id = num
-    borrow.save()
-    date = Borrows.objects.filter(book_id=num)[0]
-    date.date_borrow = datetime.datetime.now() + datetime.timedelta(days=30)
-    print(date.date_return)
-    date.save()
-    print(date.date_return)
-    return redirect(reverse('book:reader_book', args=(num, )))
+    elif request.method == "POST":
+        name = request.session.get('username', None)
+        if len(borrow) > 0:
+            content = {
+                'error': "你已经订阅!!!",
+                'book': book,
+                'reader': borrow[0],
+            }
+            return render(request, 'book/reader_book.html', content)
+        borrow = Borrows()
+        borrow.user_name = name
+        borrow.book_id = num
+        borrow.status = False
+        borrow.save()
+        date = Borrows.objects.filter(book_id=num)[0]
+        date.date_borrow = datetime.datetime.now() + datetime.timedelta(days=30)
+        print(date.date_return)
+        date.save()
+        print(date.date_return)
+        return redirect(reverse('book:reader_book', args=(num,)))
 
 
 def reader_history(request):
-    pass
+    name = request.session.get('username', None)
+    history = Borrows.objects.filter(user_name=name).all()
+    print(history)
+    content = {
+        'history': history,
+    }
+    return render(request, 'book/reader_history.html', content)

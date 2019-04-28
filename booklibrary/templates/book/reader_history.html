@@ -1,4 +1,4 @@
-{% block title %} 阅读记录 {% endblock %}
+{% extends 'book/base.html' %}
 
 {% block link %}
 	<a href="{% url 'book:index' %}"> 返回 </a>
@@ -12,12 +12,14 @@
 	    <th align="center"> 还书日期 </th>
 	    <th align="center"> 状态 </th>
 	  </tr>
-	  {% for histroy in histroys %}
+	  {% for history in history %}
 	  <tr>
-	    <th align="center"> {{histroy.book_name}} </th>
-	    <th align="center"> {{histroy.date_borrow}}</th>
-	    <th align="center"> {{histroy.date_return}} </th>
-	    <th align="center"> {{histroy.status}} </th>
+	    <th align="center"> {{history.user_name}} </th>
+	    <th align="center"> {{history.date_return}}</th>
+	    <th align="center"> {{history.date_borrow}} </th>
+          {% if not history.date.status %}
+	    <th align="center"> not return </th>
+          {% endif %}
 	  </tr>
 	  {% endfor %}
 	</table>
