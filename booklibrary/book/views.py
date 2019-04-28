@@ -87,6 +87,7 @@ def reader_info(request, name):
 
 
 def reader_modify(request):
+    """用户修改信息"""
     reader = request.session.get('username', None)
     user = Student.objects.filter(username=reader)[0]
     content = {
@@ -97,6 +98,7 @@ def reader_modify(request):
 
 
 def reader_save_modify(request):
+    """用户修改信息之后从定向"""
     s1 = sha1()
     reader = request.session.get('username', None)
     user = get_object_or_404(Student, username=reader)
@@ -136,7 +138,7 @@ def reader_query(request):
     if request.method == "POST":
         result = request.POST['item']
         book_info = request.POST['query']
-
+        # 判断是根据作者还是书名查询
         if result == 'title':
             book = Book.objects.filter(title=book_info)
             content = {
@@ -170,6 +172,7 @@ def reader_book(request, num):
 
     elif request.method == "POST":
         name = request.session.get('username', None)
+        # 查看借阅记录的条数如果已存在记录，不在可以借阅
         if len(borrow) > 0:
             content = {
                 'error': "你已经订阅!!!",
@@ -177,6 +180,7 @@ def reader_book(request, num):
                 'reader': borrow[0],
             }
             return render(request, 'book/reader_book.html', content)
+        # 保存借阅的记录
         borrow = Borrows()
         borrow.user_name = name
         borrow.book_id = num
@@ -184,16 +188,15 @@ def reader_book(request, num):
         borrow.save()
         date = Borrows.objects.filter(book_id=num)[0]
         date.date_borrow = datetime.datetime.now() + datetime.timedelta(days=30)
-        print(date.date_return)
         date.save()
-        print(date.date_return)
+
         return redirect(reverse('book:reader_book', args=(num,)))
 
 
 def reader_history(request):
     name = request.session.get('username', None)
     history = Borrows.objects.filter(user_name=name).all()
-    print(history)
+
     content = {
         'history': history,
     }
