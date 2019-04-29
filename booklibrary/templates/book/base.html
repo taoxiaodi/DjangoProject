@@ -3,9 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
+
+    <link rel="stylesheet" href="/static/js/lib/bootsrtap/bootstrap-3.3.7-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/css/style.css">
+    {% block link_js %}
+    {% endblock %}
+    <script src="/static/js/lib/jquery/jquery-2.1.4.min.js"></script>
+    <script src="/static/js/lib/bootsrtap/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 </head>
-<body>
+<body style="background-color: #CAECE9">
     <div class=page>
         <h1>图书管理系统</h1>
         <div class=navigation>

@@ -1,0 +1,17 @@
+{% extends 'book/base.html' %}
+
+{% block link %}
+    <a href="{% url 'book:index' %}"> 返回   </a>|
+    <a href="{% url 'book:edit' %}">编辑文章</a>
+{% endblock %}
+{% block body %}
+    <h2>美文欣赏</h2>
+    <hr>
+    <ol>
+        {% for article in articles %}
+            <li><a href="{% url 'book:text' article.id %}">{{article.title}}</a></li>
+        {% empty %}
+            <h2>还没有发布文章</h2>
+        {% endfor %}
+    </ol>
+{% endblock %}

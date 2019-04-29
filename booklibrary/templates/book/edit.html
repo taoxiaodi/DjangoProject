@@ -1,0 +1,29 @@
+{% extends 'book/base.html' %}
+{% block link_js %}
+    <script src="/static/tiny_mce/tiny_mce.js"></script>
+    <script>
+            tinyMCE.init({
+             'mode': 'textareas',
+            'theme': 'advanced',
+            'width': 680,
+            'height': 500,
+        })
+    </script>
+{% endblock %}
+{% block link %}
+    <a href="{% url 'book:article_list' %}">返回</a>
+{% endblock %}
+{% block body %}
+    <h2>编辑文本</h2>
+    <form action="{% url 'book:edit' %}" method="post">
+        {% csrf_token %}
+        title:
+        <br> <input type="text" name="title">
+        <br>
+        文本区:
+        <br>
+        <textarea name="message" id="" cols="30" rows="10"></textarea>
+        <br>
+        <input type="submit" value="提交">
+    </form>
+{% endblock %}

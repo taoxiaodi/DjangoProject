@@ -6,15 +6,16 @@
 
 {% block body %}
 	<h2> 查询 </h2>
-    <div class=actions>
+    <div class='actions'>
 	  <form action="{% url 'book:reader_query' %}" method="post">
           {% csrf_token %}
 	    <dd>
-	      <select name="item">
+	      <select name="item" style="margin-left:50px">
 			<option value="title"> 书名 </option>
 			<option value="auth"> 作者 </option>
 	      </select>
-	      <input type="text" name="query" size="80">
+			<br>
+	      <input type="text" name="query" size="80" style="margin-left:50px">
 	      <input type="submit" value="查询">
 	    </dd>
 	  </form>

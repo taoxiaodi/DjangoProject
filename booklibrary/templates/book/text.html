@@ -1,0 +1,9 @@
+{% extends 'book/base.html' %}
+{% block link %}
+    <a href="{% url 'book:article_list' %}"> 返回   </a>|
+{% endblock %}
+{% block body%}
+
+    {{ texts.content|safe }}
+
+{% endblock %}

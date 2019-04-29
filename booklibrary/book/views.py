@@ -1,8 +1,10 @@
 from django.shortcuts import render, reverse, redirect, get_object_or_404
 from django.http.response import HttpResponse
-from .models import Student, Book, Borrows
+from .models import Student, Book, Borrows, HotPic, TextInfo
 from hashlib import sha1
 import datetime
+from django.core.mail import send_mail, send_mass_mail
+from django.conf import settings
 # Create your views here.
 
 
@@ -11,10 +13,11 @@ def index(request):
     获取session为了防止没有session报错
     所以给个默认值None
     """
+    pic = HotPic.objects.all().order_by('index')
     if request.session.get('username', None):
-        return render(request, 'book/index.html', {'username': request.session.get('username', None)})
+        return render(request, 'book/index.html', {'username': request.session.get('username', None), 'pics': pic, 'num':"0"})
     else:
-        return render(request, 'book/index.html', {'username': None})
+        return render(request, 'book/index.html', {'username': None, "pics": pic})
 
 
 def clear_info(request):
@@ -73,6 +76,8 @@ def register(request):
             user.num = number
             user.email = email
             user.save()
+
+            # 注册发送邮箱验证
 
             return redirect(reverse('book:login'))
     return render(request, 'book/register.html')
@@ -201,3 +206,47 @@ def reader_history(request):
         'history': history,
     }
     return render(request, 'book/reader_history.html', content)
+
+
+def up_load(request):
+    if request.method == "GET":
+        return render(request, 'book/up_load.html')
+    elif request.method == "POST":
+        name = request.POST['name']
+        index = request.POST['index']
+        pic = request.FILES['pic']
+        img = HotPic(name=name, pic=pic, index=index)
+        img.save()
+        return redirect(reverse('book:index'))
+
+
+def text(request, id):
+    article = TextInfo.objects.get(pk=id)
+    return render(request, 'book/text.html', {"texts": article})
+
+
+def edit(request):
+    if request.method == "GET":
+        return render(request, 'book/edit.html',)
+    elif request.method == "POST":
+        title = request.POST['title']
+        message = request.POST['message']
+        msg = TextInfo(title=title, content=message)
+        msg.save()
+        return redirect(reverse('book:article_list'))
+
+
+def article_list(request):
+    article = TextInfo.objects.all()
+    return render(request, 'book/list.html', {'articles': article, })
+
+
+def mail(request):
+    try:
+        send_mail('Django发送邮件', '<a href="http://127.0.0.1:8000/book/">',
+                  settings.DEFAULT_FROM_EMAIL,
+                  ['1104056609@qq.com', ]
+                  )
+        return HttpResponse('发送成功')
+    except:
+        return HttpResponse('发送失败')
