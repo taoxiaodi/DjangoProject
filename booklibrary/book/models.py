@@ -18,6 +18,7 @@ class Student(models.Model):
     college = models.CharField(blank=True, null=True, max_length=20)
     num = models.CharField(blank=True, null=True, max_length=20)
     email = models.EmailField(blank=True, null=True, max_length=20)
+    is_active = models.BooleanField(default=False)
 
 
 class Borrows(models.Model):

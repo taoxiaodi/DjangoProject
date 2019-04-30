@@ -3,8 +3,10 @@ from django.http.response import HttpResponse
 from .models import Student, Book, Borrows, HotPic, TextInfo
 from hashlib import sha1
 import datetime
-from django.core.mail import send_mail, send_mass_mail
+from django.core.mail import send_mail, send_mass_mail, EmailMultiAlternatives
 from django.conf import settings
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer, SignatureExpired
+
 # Create your views here.
 
 
@@ -13,9 +15,10 @@ def index(request):
     获取session为了防止没有session报错
     所以给个默认值None
     """
+
     pic = HotPic.objects.all().order_by('index')
     if request.session.get('username', None):
-        return render(request, 'book/index.html', {'username': request.session.get('username', None), 'pics': pic, 'num':"0"})
+        return render(request, 'book/index.html', {'username': request.session.get('username', None), 'pics': pic,})
     else:
         return render(request, 'book/index.html', {'username': None, "pics": pic})
 
@@ -76,9 +79,21 @@ def register(request):
             user.num = number
             user.email = email
             user.save()
+            id = Student.objects.get(username=username).id
 
+            # 注册链接加密
+            desc = Serializer(settings.SECRET_KEY, 50)
+            strid = desc.dumps({'userid': id}).decode('utf-8')
+            send_mail('注册激活邮件',
+                      '<a href="http://127.0.0.1:8000/book/active/%s">点击激活账号</a>' % (strid, ),
+                      settings.DEFAULT_FROM_EMAIL, [email, ])
             # 注册发送邮箱验证
-
+            # msg = EmailMultiAlternatives('注册激活邮件',
+            #                              '<a href="http://127.0.0.1:8000/book/active/%s">点击激活账号</a>' % (strid, ),
+            #                              settings.DEFAULT_FROM_EMAIL, [email, ])
+            # msg.content_subtype = 'html'
+            # msg.attach_file('./manage.py', "text/*")
+            # msg.send()
             return redirect(reverse('book:login'))
     return render(request, 'book/register.html')
 
@@ -250,3 +265,23 @@ def mail(request):
         return HttpResponse('发送成功')
     except:
         return HttpResponse('发送失败')
+
+
+def active(request, id):
+    try:
+        enc = Serializer(settings.SECRET_KEY, 50)
+        str = enc.loads(id)['userid']
+        user = Student.objects.get(pk=str)
+        user.is_active = True
+        user.save()
+        return HttpResponse('激活成功')
+    except SignatureExpired as e:
+        return HttpResponse("验证链接已失效")
+
+
+def ajax(request):
+    return render(request, 'book/ajax.html')
+
+
+def ajaxajax(request):
+    return HttpResponse("成功")

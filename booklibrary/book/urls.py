@@ -19,4 +19,8 @@ urlpatterns = [
     url(r'^edit/$', views.edit, name='edit'),
     url(r'^article_list/$', views.article_list, name='article_list'),
     url(r'^mail/$', views.mail, name='mail'),
+    url(r'^active/(.*?)/$', views.active, name='active'),
+
+    url(r'^ajax/$', views.ajax, name='ajax'),
+    url(r'^ajaxajax/$', views.ajaxajax, name='ajaxajax')
 ]

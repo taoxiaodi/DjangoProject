@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/static/js/lib/jquery/jquery-2.1.4.min.js"></script>
+    <script>
+        $(function () {
+            $('#btn').click(function () {
+                console.log('加载完成')
+                $.ajax({
+                  url:'/book/ajaxajax/',
+                  type:'post',
+                  data:{"csrfmiddlewaretoken": $("input[name=csrfmiddlewaretoken]").val()},
+                  success:function (data) {
+                      $('#info').html(data)
+                  }
+                })
+            })
+
+        })
+    </script>
+</head>
+<body>
+    {% csrf_token %}
+    <button id="btn">点击刷新</button>
+    <div id="info"></div>
+</body>
+</html>
+
