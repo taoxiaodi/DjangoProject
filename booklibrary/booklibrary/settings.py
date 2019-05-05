@@ -149,3 +149,12 @@ DEFAULT_FROM_EMAIL = 'zzy0371 <18137128152@163.com>'
 
 # 异步刷新配置
 APPEND_SLASH = False
+
+# 配置缓存
+CACHES = {
+    "default": {
+        "BACKEND": "redis_cache.cache.RedisCache",
+        "LOCATION": "localhost:6379",
+        'TIMEOUT': 60,
+    },
+}

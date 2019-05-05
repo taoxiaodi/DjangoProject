@@ -21,6 +21,13 @@ urlpatterns = [
     url(r'^mail/$', views.mail, name='mail'),
     url(r'^active/(.*?)/$', views.active, name='active'),
 
+    # 异步刷新相关视图
     url(r'^ajax/$', views.ajax, name='ajax'),
-    url(r'^ajaxajax/$', views.ajaxajax, name='ajaxajax')
+    url(r'^ajaxajax/$', views.ajaxajax, name='ajaxajax'),
+    url(r'^ajaxlogin/$', views.ajaxlogin, name='ajaxlogin'),
+    url(r'^verify/$', views.verify, name='verify'),
+    url(r'^verifyimg/$', views.verifyimg, name='verifyimg'),
+
+    # echarts
+    url(r'echarts', views.echarts, name='echarts')
 ]

@@ -1,5 +1,5 @@
 {% extends 'book/base.html' %}
-
+{% load cache %}
 {% block link %}
     {% if username %}
         <a href="{% url 'book:clear_info' %}"> 注销[{{username}}] </a> |
@@ -14,7 +14,9 @@
 {% endblock %}
 
 {% block body %}
+    {% cache 500 info %}
     <h2>欢迎使用</h2>
+    {% endcache %}
 
     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
   <!-- Indicators -->

@@ -16,5 +16,5 @@ urlpatterns = [
     url(r'^editname/(\d+)/$', views.editname, name='editname'),
     url(r'edithero/(\d+)/$', views.edithero, name='edithero'),
     url(r'drophero/(\d+)/$', views.drophero, name='drophero'),
-    url(r'^editheroinfo/(\d+)/$', views.editheroinfo, name='editheroinfo')
+    url(r'^editheroinfo/(\d+)/$', views.editheroinfo, name='editheroinfo'),
 ]
