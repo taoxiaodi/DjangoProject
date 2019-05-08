@@ -47,12 +47,15 @@ def login(request):
         password = request.POST['password']
         s1.update(password.encode())
         password = s1.hexdigest()
-        info = Student.objects.filter(username=username)[0]
-        print(info.username, username)
-        print(info.password, password)
-        if info.username == username and info.password == password:
-            request.session['username'] = username
-            return redirect(reverse('book:index'))
+        info = Student.objects.filter(username=username)
+        if len(info):
+            print(info[0].username, username)
+            print(info[0].password, password)
+            if info[0].username == username and info[0].password == password:
+                request.session['username'] = username
+                return redirect(reverse('book:index'))
+            error = 'Invalid username'
+            return render(request, 'book/login.html', {'error': error})
         else:
             error = 'Invalid username'
             return render(request, 'book/login.html', {'error': error})
